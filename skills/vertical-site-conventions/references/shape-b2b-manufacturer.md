@@ -29,11 +29,13 @@ This file is a default set of composition conventions for the shape. When `compe
 ## 3. Product surface
 
 **Conventions:**
-- A product listing page carries each product line with a name, a tagline (one declarative sentence), three to six headline specs, and a link to the detail page.
-- A product detail page carries: full spec table (payload, reach, repeatability, latency, IP rating, safety standards, integration interfaces), the blurb, the certifications applicable to this product, the applications that use it, a demo CTA wired to this product, integration-interface section (OPC UA, EtherNet/IP, REST API, etc.).
+- A product listing page carries each product line with a name, a tagline (one declarative sentence), three to six headline specs, a product image, and a link to the detail page.
+- A product detail page carries: full spec table (payload, reach, repeatability, latency, IP rating, safety standards, integration interfaces), the blurb, **a primary product image plus at least one secondary image** (a different angle, a close detail of a critical sub-system, or an in-context-on-a-line shot), the certifications applicable to this product, the applications that use it, a demo CTA wired to this product, integration-interface section (OPC UA, EtherNet/IP, REST API, etc.).
 - Specs are an HTML table, not an image of a table from a PDF. Crawlers and screen readers read it; copy-paste works.
+- Product imagery is real, single-subject, industrial-product photography. Premium register matching the brand (factory-floor or studio backdrop, controlled lighting, the machine as the subject). Spec tables alone read as a brochure-with-numbers; a buyer needs to see the machine. Specs remain the spine of the page; imagery supports the specs, it does not replace them.
 - Certifications are carried at the **product level** on the detail page, not buried on About. A buyer screening for "must be ISO 10218 certified" should see the certification on the product page in under three seconds.
 - Quote-based pricing is named openly. "Quote-based"; "Talk to engineering"; "Configurations vary by integration." A blank price field signals "this is hidden from me" rather than "this is configured to your line."
+- Product imagery is honest-demo where the build is a showcase: unbranded equipment, no fabricated competitor logos, no real-world manufacturer brand marks, no baked-in pricing or spec text in the image (specs live in HTML). Industrial-product image generation is prone to hallucinating brand badges and control-panel writing; the image-pipeline gate's brand-name and fabricated-logo checks are load-bearing here.
 
 ## 4. Applications surface (the case studies)
 
@@ -49,7 +51,7 @@ This file is a default set of composition conventions for the shape. When `compe
 - A Company page with founding year, headquarters, certifications, plain-language about the engineering posture. Not a brand story.
 - Certifications baseline at the company level (ISO 9001, ISO 10218, UL, AS9100, IEC 61508, etc.) and at the product level on each detail page. Buyers screen for these; making them findable is a credibility move.
 - Made-in-X is named openly if relevant (made in Pittsburgh, designed in Munich, assembled in Taiwan). Country of design and country of manufacture are different and both are surfaceable.
-- Founding team, depth of bench, customer count, plant size — these are facts a buyer's committee asks for; the page should answer them without forcing a sales conversation first.
+- Founding team, depth of bench, customer count, plant size are facts a buyer's committee asks for; the page should answer them without forcing a sales conversation first.
 - The engineering posture (what the company believes about how to build equipment) is a real thing to name. "The factory is the test bench" or "every product runs on our own line before it ships" is the kind of plain claim that does the work brand-essay generic copy fails to do.
 
 ## 6. JSON-LD and structured data
@@ -83,22 +85,25 @@ For showcase or demo builds, the functional-vs-demo line: real where touchable (
 
 ## 9. Recurring vertical conventions (the synthesis)
 
-A credible B2B-manufacturer site, against the field of leaders, carries ten conventions:
+A credible B2B-manufacturer site, against the field of leaders, carries eleven conventions:
 
 1. A single-subject industrial hero photograph above the fold at a 1280x800 desktop viewport, with a declarative one-line manifesto and the demo CTA.
 2. **(Density-bearing)** Specs surfaced as an HTML table per product, not gated behind a PDF.
-3. A product listing page with each product line, its tagline, and three to six headline specs visible.
+3. A product listing page with each product line, its tagline, three to six headline specs, and a product image visible per line.
 4. A product detail page with full spec table, certifications at the product level, applied applications, and a demo CTA wired to the product.
 5. **(Density-bearing)** An applications page with named industries and named metrics (cycle time, throughput change, payback period, first-pass yield); no genericized "global leader in X" prose.
 6. A Company page with founding year, headquarters, certifications, and an engineering-posture statement that names what the company believes.
-7. JSON-LD Organization at the layout level; Product schema on each product detail page.
+7. JSON-LD Organization at the layout level; Product schema on each product detail page (with the primary and secondary image URLs populated under image).
 8. **(Density-bearing)** A demo / contact form that is on-site, six fields, no third-party gating; the demo flow lives within the site's visual contract.
 9. Honest "what happens next" copy on the demo path; phone-as-fallback visible.
 10. Where pricing is quote-based, no fake dollar figures; the page names the quote-based posture openly.
+11. **(Density-bearing, new)** Real product imagery on the product surface. Each product detail page carries a primary product image plus at least one secondary (a different angle, a close detail of a critical sub-system, or an in-context-on-a-line shot). Product listing cards lead with a product image above the spec table, not specs alone. Premium / industrial / single-subject register, honest-demo where the build is a showcase (no fabricated brand marks or pricing baked into the imagery). Spec tables remain the spine of the page; imagery supports the specs, it does not replace them.
 
-**Threshold and density-bearing items.** A build hitting 8 or more of these is at the experience bar for the shape; the wedge is what the build does beyond that. A build missing 3 or more is off-vertical and needs composition work, not a polish pass.
+**Threshold and density-bearing items.** A build hitting 9 or more of these is at the experience bar for the shape; the wedge is what the build does beyond that. A build missing 3 or more is off-vertical and needs composition work, not a polish pass.
 
-Conventions **2, 5, and 8 are the density-bearing ones**, the items whose absence makes a checklist-passing build still read as a brochure or a lead-gen funnel instead of a credibility document. A build can miss a nice-to-have (the phone-as-fallback, for example) and still read as the vertical; missing any of conventions 2, 5, or 8 will make the build read as marketing-with-a-spec-PDF-attached rather than engineer-facing equipment. Treat the density-bearing items as non-skippable: if any one is missing, the build will read off-vertical regardless of how many other conventions it hits.
+Conventions **2, 5, 8, and 11 are the density-bearing ones**, the items whose absence makes a checklist-passing build still read as a brochure, a lead-gen funnel, or a half-built equipment site instead of a credibility document. A build can miss a nice-to-have (the phone-as-fallback, for example) and still read as the vertical; missing any of the density-bearing four will make the build read off-vertical regardless of how many other conventions it hits. Treat the density-bearing items as non-skippable.
+
+**Why convention 11 needed to be added separately.** The first b2b-manufacturer build (Volta Robotics) carried conventions 1 through 10 cleanly: spec tables in HTML, named-metric applications, six-field on-site demo form, certifications at the product level, JSON-LD Product schema. It passed the checklist and still read thin against a premium-industrial buyer's eye: one hero image, then spec-only product cards on the lineup and spec-only detail pages. A premium capital-equipment buyer expects to see the machine, multiple angles, in-context on a line. The model flagged it, the human confirmed it. A spec-led build can be checklist-correct and still register as a brochure-with-numbers rather than equipment. Convention 11 closes that gap: the product surface carries real product imagery as a chrome-level convention, not a polish extra; the spec table is the spine and the imagery is the evidence the spine describes a real machine.
 
 ---
 
