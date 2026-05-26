@@ -77,7 +77,7 @@ For showcase or demo builds, the functional-vs-demo line: real where touchable (
 
 ## 7. Recurring vertical conventions (the synthesis)
 
-A credible ecommerce-catalog storefront, against the field of leaders, carries ten conventions:
+A credible ecommerce-catalog storefront, against the field of leaders, carries eleven conventions:
 
 1. A primary task that owns the hero (fitment, search, or category-grid; not a brand pitch).
 2. **(Density-bearing)** A category surface band **above the fold at a 1280x800 desktop viewport**, not buried in a menu and not requiring scroll to reach.
@@ -87,12 +87,23 @@ A credible ecommerce-catalog storefront, against the field of leaders, carries t
 6. Reviews or an explicit substitute (warranty, return policy) near the buying action.
 7. A working cart with real client-side state across pages.
 8. A clearly labeled checkout flow (real in production; honestly demo in showcase builds).
-9. **(Density-bearing, new)** A promotional or deal surface near the top: a deal-of-the-week strip, a promo band, or a featured-offer row.
-10. **(Density-bearing, new)** An inventory or catalog-depth signal a first-time visitor will see (a part count, an SKU total, a category count, or a near-equivalent).
+9. **(Density-bearing)** A promotional or deal surface near the top: a deal-of-the-week strip, a promo band, or a featured-offer row.
+10. **(Density-bearing)** An inventory or catalog-depth signal a first-time visitor will see (a part count, an SKU total, a category count, or a near-equivalent).
+11. **(Density-bearing, new)** Section count and merchandising volume at the field's level, not at a token-row level. A credible storefront carries roughly thirteen-plus distinct merchandising surfaces top-to-bottom on the home (desktop and mobile each, mobile typically taller), three SKU rails carrying twelve-plus product cards in total, a multi-card deals grid of four-to-eight distinct deal cards (not a single thin promo strip), a category grid of eight-plus photographic tiles, a four-to-six-cell services and trust band, twenty-five-plus distinct images on the home, and a five-to-seven-column footer. A build that hits conventions 2, 9, and 10 with one four-card rail and a five-tile category band passes the presence-check and still reads thin against the field; the bar is volume, not presence.
 
-**Threshold and density-bearing items.** A build hitting 8 or more of these is at the experience bar for the shape; the wedge is what the build does beyond that. A build missing 3 or more is off-vertical and needs composition work, not a polish pass.
+**Threshold and density-bearing items.** A build hitting 9 or more of these is at the experience bar for the shape; the wedge is what the build does beyond that. A build missing 3 or more is off-vertical and needs composition work, not a polish pass.
 
-Conventions **2, 9, and 10 are the density-bearing ones**, the items whose absence makes a checklist-passing build still read airy or brochure-like instead of storefront-dense. A build can miss a nice-to-have (a strong substitute for reviews, for example) and still read as the vertical; missing any of conventions 2, 9, or 10 is the failure mode the first real auto-parts build exposed. Treat the density-bearing items as non-skippable: if any one is missing, the build will read off-vertical regardless of how many other conventions it hits.
+Conventions **2, 9, 10, and 11 are the density-bearing ones**, the items whose absence makes a checklist-passing build still read airy or brochure-like instead of storefront-dense. A build can miss a nice-to-have (a strong substitute for reviews, for example) and still read as the vertical; missing any of the density-bearing four is the failure mode the auto-parts builds exposed across multiple iterations. Treat the density-bearing items as non-skippable: if any one is missing, the build will read off-vertical regardless of how many other conventions it hits.
+
+**Why convention 11 needed to be added separately.** Before this entry, a build could carry the category band, the promo strip, and the inventory signal (conventions 2, 9, 10) and still read thin, because the prior conventions named *which* sections, never *how many* or *how full*. A category band with five tiles passed convention 2; a promo strip with one offer passed convention 9; a part-count badge passed convention 10. The build read storefront-correct on the checklist and read SaaS-airy in a rendered comparison against the field. Convention 11 closes that gap: the bar is the field's actual volume, observed top-to-bottom on a rendered home page, not a presence-check that any single token instance satisfies.
+
+---
+
+## Capture-path note (audit infrastructure)
+
+The named field leaders in heavily-defended verticals (auto-parts is one) sit behind CDN/WAF bot-mitigation layers that block Fork A rendered capture even with realistic User-Agent strings. In a render-and-match attempt against the four leading parts retailers, all four were intercepted (Cloudflare, Akamai 403, DataDome interstitial, network-idle timeout) and Fork A returned zero homepage content. A synthesis pass on zero captured content silently falls back to training-knowledge abstraction, which is the exact failure mode this shape was added to defend against.
+
+**The lesson, recorded as audit-infrastructure guidance for this shape:** in bot-walled verticals, the realistic capture path is screenshot ingestion (a human takes desktop and mobile screenshots of each leader and drops them at a known path; the audit reads the PNGs with vision and produces the section-and-density target from observed evidence). Render-and-match through Fork A alone is not a reliable capture path for this shape. The audit script's selection of capture path should treat Fork A as the default and fall back to screenshot ingestion when zero or trivial content is returned; absent that fallback, the audit silently degrades to abstraction and the build it informs reads thin.
 
 ---
 
